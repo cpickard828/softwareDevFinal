@@ -39,7 +39,7 @@ public class FXMLDocumentController implements Initializable {
       new Thread( () -> {
       try {
         // Create a server socket
-        serverSocket = new ServerSocket(80);
+        serverSocket = new ServerSocket(8000);
 
         while (true) {
           // Listen for a new connection request
