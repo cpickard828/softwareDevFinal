@@ -20,7 +20,7 @@ public class BoardClient extends Application {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-        stage.setTitle("Chat Client");
+        stage.setTitle("Board Client");
         stage.setOnCloseRequest(event->System.exit(0));
         stage.show();
     }
