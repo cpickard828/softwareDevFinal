@@ -24,35 +24,35 @@ import javafx.scene.control.TextArea;
  * @author Joe Gregg
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     @FXML
     private TextArea textArea;
-    
+
     private int clientNo = 0;
     private Transcript transcript;
-    
+
     private ServerSocket serverSocket;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      transcript = new Transcript();       
+      transcript = new Transcript();
       new Thread( () -> {
       try {
         // Create a server socket
-        serverSocket = new ServerSocket(8000);
-        
+        serverSocket = new ServerSocket(80);
+
         while (true) {
           // Listen for a new connection request
-          Socket socket = serverSocket.accept();    
+          Socket socket = serverSocket.accept();
           // Increment clientNo
           clientNo++;
-          
+
           Platform.runLater( () -> {
             // Display the client number
             textArea.appendText("Starting thread for client " + clientNo +
               " at " + new Date() + '\n');
             });
-          
+
           // Create and start a new thread for the connection
           new Thread(new HandleAClient(socket,transcript,textArea)).start();
         }
@@ -61,8 +61,8 @@ public class FXMLDocumentController implements Initializable {
         System.err.println(ex);
       }
     }).start();
-    }    
-    
+    }
+
 }
 
 class HandleAClient implements Runnable, board.BoardConstants {

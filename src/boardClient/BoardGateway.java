@@ -21,7 +21,7 @@ public class BoardGateway implements board.BoardConstants {
         try {
             // Create a socket to connect to the server
         	InetAddress addr = InetAddress.getByName("66.254.251.255");
-            Socket socket = new Socket(addr, 8000);
+            Socket socket = new Socket(addr, 80);
 
             // Create an output stream to send data to the server
             outputToServer = new PrintWriter(socket.getOutputStream());
