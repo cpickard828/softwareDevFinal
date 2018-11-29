@@ -11,6 +11,7 @@ import javafx.stage.Stage;
  *
  * @author Joe Gregg
  * @modified Jane Cleland-Huang
+ * @modified by HRCC
  */
 public class BoardClient extends Application {
 
