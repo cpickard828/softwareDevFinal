@@ -108,6 +108,21 @@ class HandleAClient implements Runnable, board.BoardConstants {
                   outputToClient.println(transcript.getComment(n));
                   outputToClient.flush();
               }
+              case SEND_STORY: {
+                  String comment = inputFromClient.readLine();
+                  transcript.addStory(comment);
+                  break;
+              }
+              case GET_STORY_COUNT: {
+                  outputToClient.println(transcript.getStorySize());
+                  outputToClient.flush();
+                  break;
+              }
+              case GET_STORY: {
+                  int n = Integer.parseInt(inputFromClient.readLine());
+                  outputToClient.println(transcript.getStory(n));
+                  outputToClient.flush();
+              }
           }
         }
       }
