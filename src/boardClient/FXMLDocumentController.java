@@ -17,8 +17,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputDialog;
 
 /**
@@ -38,7 +38,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField storypri;
     @FXML
-    private ScrollPane storypane;
+    private VBox storypane;
 
     public List<String> storyTranscript = Collections.synchronizedList(new ArrayList<String>());
     
@@ -77,13 +77,13 @@ public class FXMLDocumentController implements Initializable {
 class TranscriptCheck implements Runnable, board.BoardConstants {
     private BoardGateway gateway; // Gateway to the server
     private TextArea textArea; // Where to display comments
-    private ScrollPane storypane; // Where to display comments
+    private VBox storypane; // Where to display comments
     private int N; // How many comments we have read
     private int S; // How many stories we have read
     private FXMLDocumentController fxdc;
 
     /** Construct a thread */
-    public TranscriptCheck(BoardGateway gateway,TextArea textArea,ScrollPane storypane, FXMLDocumentController fxdc) {
+    public TranscriptCheck(BoardGateway gateway,TextArea textArea,VBox storypane, FXMLDocumentController fxdc) {
       this.gateway = gateway;
       this.textArea = textArea;
       this.storypane = storypane;
@@ -103,11 +103,12 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
               String desc = data[2];
               String pri = data[3];
               fxdc.storyTranscript.add(newComment);
-              storypane.getChildren().add(new Label("First Label"));
-              //Platform.runLater(()->storypane.appendText("Story " + storyKey + "\n"));
-              //Platform.runLater(()->storypane.appendText(name + "\n"));
-              //Platform.runLater(()->storypane.appendText(desc + "\n"));
-              //Platform.runLater(()->storypane.appendText("Priority: " + pri + "\n_______________________________________\n"));
+              TextArea newTextArea = new TextArea();
+              Platform.runLater(()->storypane.getChildren().add(newTextArea));
+              Platform.runLater(()->newTextArea.appendText("Story " + storyKey + "\n"));
+              Platform.runLater(()->newTextArea.appendText(name + "\n"));
+              Platform.runLater(()->newTextArea.appendText(desc + "\n"));
+              Platform.runLater(()->newTextArea.appendText("Priority: " + pri + "\n"));
               S++;
           } else {
               try {

@@ -13,11 +13,14 @@
       <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                  <ScrollPane fx:id="storypane" hbarPolicy="NEVER" prefHeight="300.0" prefWidth="200.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-        </content>
-                  </ScrollPane>
+	          <ScrollPane hbarPolicy="NEVER"  prefWidth="200.0" styleClass="centeredTextArea, paddingTop">
+		        <content>      
+		        	<VBox fx:id="storypane" prefWidth="200.0" BorderPane.alignment="CENTER">
+         				<children>
+		                </children>
+           			 </VBox>
+		        </content>
+	          </ScrollPane>
         </content>
       </ScrollPane>
    </left>

@@ -8,17 +8,17 @@ import java.net.InetAddress;
 import java.net.Socket;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 
 public class BoardGateway implements board.BoardConstants {
 
     private PrintWriter outputToServer;
     private BufferedReader inputFromServer;
     private TextArea textArea;
-    private ScrollPane storypane;
+    private VBox storypane;
 
     // Establish the connection to the server.
-    public BoardGateway(TextArea textArea, ScrollPane storypane) {
+    public BoardGateway(TextArea textArea, VBox storypane) {
         this.textArea = textArea;
         this.storypane = storypane;
         try {
