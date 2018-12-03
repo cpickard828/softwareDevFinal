@@ -1,0 +1,7 @@
+.centeredTextArea .scroll-pane .content .text {
+    -fx-text-alignment: center;
+}
+
+.paddingTop {
+-fx-padding: 25 0 0 0;
+}

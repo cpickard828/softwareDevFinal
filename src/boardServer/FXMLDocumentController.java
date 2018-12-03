@@ -18,6 +18,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import java.util.Random;
 
 /**
  *
@@ -27,7 +28,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private TextArea textArea;
-
+    
     private int clientNo = 0;
     private Transcript transcript;
 
@@ -70,6 +71,8 @@ class HandleAClient implements Runnable, board.BoardConstants {
     private Transcript transcript; // Reference to shared transcript
     private TextArea textArea;
     private String handle;
+    private int numStories = 0;
+    private Random rand = new Random();
 
     public HandleAClient(Socket socket,Transcript transcript,TextArea textArea) {
       this.socket = socket;
@@ -96,6 +99,7 @@ class HandleAClient implements Runnable, board.BoardConstants {
               case SEND_COMMENT: {
                   String comment = inputFromClient.readLine();
                   transcript.addComment(handle + "> " + comment);
+                  textArea.appendText("new comment: " + comment + '\n');
                   break;
               }
               case GET_COMMENT_COUNT: {
@@ -106,6 +110,23 @@ class HandleAClient implements Runnable, board.BoardConstants {
               case GET_COMMENT: {
                   int n = Integer.parseInt(inputFromClient.readLine());
                   outputToClient.println(transcript.getComment(n));
+                  outputToClient.flush();
+              }
+              case SEND_STORY: {
+                  String comment = inputFromClient.readLine();
+                  int random = rand.nextInt(9999) + 1;
+                  transcript.addStory(Integer.toString(random + (numStories++ * 100000)) + '|' + comment);
+                  textArea.appendText("new story: " + comment + '\n');
+                  break;
+              }
+              case GET_STORY_COUNT: {
+                  outputToClient.println(transcript.getStorySize());
+                  outputToClient.flush();
+                  break;
+              }
+              case GET_STORY: {
+                  int n = Integer.parseInt(inputFromClient.readLine());
+                  outputToClient.println(transcript.getStory(n));
                   outputToClient.flush();
               }
           }

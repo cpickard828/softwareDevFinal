@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,24 +8,124 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardClient.FXMLDocumentController">
+<BorderPane stylesheets="@./style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardClient.FXMLDocumentController">
+   <left>
+      <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+	          <ScrollPane hbarPolicy="NEVER"  prefWidth="200.0" styleClass="centeredTextArea, paddingTop">
+		        <content>      
+		        	<VBox fx:id="storypane" prefWidth="200.0" BorderPane.alignment="CENTER">
+         				<children>
+		                </children>
+           			 </VBox>
+		        </content>
+	          </ScrollPane>
+        </content>
+      </ScrollPane>
+   </left>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <content>
-            <TextArea fx:id="textArea" prefHeight="358.0" prefWidth="600.0" />
-         </content>
+      <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
       </ScrollPane>
    </center>
-   <bottom>
-      <HBox prefWidth="200.0" BorderPane.alignment="CENTER_LEFT">
+   <right>
+      <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+   </right>
+   <top>
+      <VBox prefHeight="101.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="comment" prefHeight="26.0" prefWidth="540.0">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </TextField>
-            <Button mnemonicParsing="false" onAction="#sendComment" text="Send" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextArea editable="false" prefHeight="56.0" prefWidth="286.0" text="    Scrum Board">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </TextArea>
+                  <GridPane prefHeight="56.0" prefWidth="314.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="107.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="103.0" minWidth="10.0" prefWidth="98.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="107.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button mnemonicParsing="false" text="Product Backlog" />
+                        <Button mnemonicParsing="false" text="Sprint Backlog" GridPane.columnIndex="1" />
+                        <Button mnemonicParsing="false" text="Burndown Chart" GridPane.columnIndex="2" />
+                     </children>
+                  </GridPane>
+               </children>
+            </HBox>
+            <GridPane prefHeight="40.0" prefWidth="600.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="centeredTextArea" text="Not Started">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="centeredTextArea" text="In Progress" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="centeredTextArea" text="Finished" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </GridPane>
          </children>
-      </HBox>
+      </VBox>
+   </top>
+   <bottom>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <items>
+            <GridPane prefHeight="109.0" prefWidth="598.0">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" text="Move to Not Started" />
+                  <Button mnemonicParsing="false" text="View" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" text="Move to In Progress" GridPane.columnIndex="1" />
+                  <Button mnemonicParsing="false" text="Modify" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" text="Move to Finished" GridPane.columnIndex="2" />
+                  <Button mnemonicParsing="false" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" prefWidth="598.0">
+               <children>
+                  <TextField fx:id="storyname" promptText="Name of User..." />
+                  <TextField fx:id="storydesc" prefHeight="8.0" prefWidth="139.0" promptText="Description of story..." />
+                  <TextField fx:id="storypri" promptText="Priority level (1 - 10)..." />
+                  <Button onAction="#sendStory" mnemonicParsing="false" text="Create User Story" />
+               </children>
+            </HBox>
+        </items>
+      </SplitPane>
    </bottom>
 </BorderPane>

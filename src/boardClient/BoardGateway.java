@@ -8,19 +8,22 @@ import java.net.InetAddress;
 import java.net.Socket;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 
 public class BoardGateway implements board.BoardConstants {
 
     private PrintWriter outputToServer;
     private BufferedReader inputFromServer;
     private TextArea textArea;
+    private VBox storypane;
 
     // Establish the connection to the server.
-    public BoardGateway(TextArea textArea) {
+    public BoardGateway(TextArea textArea, VBox storypane) {
         this.textArea = textArea;
+        this.storypane = storypane;
         try {
             // Create a socket to connect to the server
-        	InetAddress addr = InetAddress.getByName("10.26.177.237");
+        	InetAddress addr = InetAddress.getByName("localhost");
             Socket socket = new Socket(addr, 8000);
 
             // Create an output stream to send data to the server
@@ -31,6 +34,7 @@ public class BoardGateway implements board.BoardConstants {
 
         } catch (IOException ex) {
             Platform.runLater(() -> textArea.appendText("Exception in gateway constructor: " + ex.toString() + "\n"));
+            //Platform.runLater(() -> storypane.appendText("Exception in gateway constructor: " + ex.toString() + "\n"));
         }
     }
 
@@ -47,6 +51,13 @@ public class BoardGateway implements board.BoardConstants {
         outputToServer.println(comment);
         outputToServer.flush();
     }
+    
+    // Send a new comment to the server.
+    public void sendStory(String comment) {
+        outputToServer.println(SEND_STORY);
+        outputToServer.println(comment);
+        outputToServer.flush();
+    }
 
     // Ask the server to send us a count of how many comments are
     // currently in the transcript.
@@ -58,6 +69,22 @@ public class BoardGateway implements board.BoardConstants {
             count = Integer.parseInt(inputFromServer.readLine());
         } catch (IOException ex) {
             Platform.runLater(() -> textArea.appendText("Error in getCommentCount: " + ex.toString() + "\n"));
+            //Platform.runLater(() -> storypane.appendText("Error in getCommentCount: " + ex.toString() + "\n"));
+        }
+        return count;
+    }
+    
+    // Ask the server to send us a count of how many comments are
+    // currently in the transcript.
+    public int getStoryCount() {
+        outputToServer.println(GET_STORY_COUNT);
+        outputToServer.flush();
+        int count = 0;
+        try {
+            count = Integer.parseInt(inputFromServer.readLine());
+        } catch (IOException ex) {
+            Platform.runLater(() -> textArea.appendText("Error in getStoryCount: " + ex.toString() + "\n"));
+            //Platform.runLater(() -> storypane.appendText("Error in getStoryCount: " + ex.toString() + "\n"));
         }
         return count;
     }
@@ -72,6 +99,22 @@ public class BoardGateway implements board.BoardConstants {
             comment = inputFromServer.readLine();
         } catch (IOException ex) {
             Platform.runLater(() -> textArea.appendText("Error in getComment: " + ex.toString() + "\n"));
+            //Platform.runLater(() -> storypane.appendText("Error in getComment: " + ex.toString() + "\n"));
+        }
+        return comment;
+    }
+    
+    // Fetch comment n of the transcript from the server.
+    public String getStory(int n) {
+        outputToServer.println(GET_STORY);
+        outputToServer.println(n);
+        outputToServer.flush();
+        String comment = "";
+        try {
+            comment = inputFromServer.readLine();
+        } catch (IOException ex) {
+            Platform.runLater(() -> textArea.appendText("Error in getStory: " + ex.toString() + "\n"));
+            //Platform.runLater(() -> storypane.appendText("Error in getStory: " + ex.toString() + "\n"));
         }
         return comment;
     }
