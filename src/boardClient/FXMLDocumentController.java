@@ -6,7 +6,10 @@
 package boardClient;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -15,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputDialog;
 
 /**
@@ -34,8 +38,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField storypri;
     @FXML
-    private TextArea storypane;
+    private ScrollPane storypane;
 
+    public List<String> storyTranscript = Collections.synchronizedList(new ArrayList<String>());
+    
     
     @FXML
     private void sendStory(ActionEvent event) {
@@ -64,24 +70,26 @@ public class FXMLDocumentController implements Initializable {
         result.ifPresent(name -> gateway.sendHandle(name));
 
         // Start the transcript check thread
-        new Thread(new TranscriptCheck(gateway,textArea,storypane)).start();
+        new Thread(new TranscriptCheck(gateway,textArea,storypane, this)).start();
     }
 }
 
 class TranscriptCheck implements Runnable, board.BoardConstants {
     private BoardGateway gateway; // Gateway to the server
     private TextArea textArea; // Where to display comments
-    private TextArea storypane; // Where to display comments
+    private ScrollPane storypane; // Where to display comments
     private int N; // How many comments we have read
     private int S; // How many stories we have read
+    private FXMLDocumentController fxdc;
 
     /** Construct a thread */
-    public TranscriptCheck(BoardGateway gateway,TextArea textArea,TextArea storypane) {
+    public TranscriptCheck(BoardGateway gateway,TextArea textArea,ScrollPane storypane, FXMLDocumentController fxdc) {
       this.gateway = gateway;
       this.textArea = textArea;
       this.storypane = storypane;
       this.N = 0;
       this.S = 0;
+      this.fxdc = fxdc;
     }
 
     /** Run a thread */
@@ -90,12 +98,16 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
           if(gateway.getStoryCount() > S) {
               String newComment = gateway.getStory(S);
               String[] data = newComment.split("\\|");
-              String name = data[0];
-              String desc = data[1];
-              String pri = data[2];
-              Platform.runLater(()->storypane.appendText(name + "\n"));
-              Platform.runLater(()->storypane.appendText(desc + "\n"));
-              Platform.runLater(()->storypane.appendText("Priority: " + pri + "\n_______________________________________\n"));
+              String storyKey = data[0];
+              String name = data[1];
+              String desc = data[2];
+              String pri = data[3];
+              fxdc.storyTranscript.add(newComment);
+              storypane.getChildren().add(new Label("First Label"));
+              //Platform.runLater(()->storypane.appendText("Story " + storyKey + "\n"));
+              //Platform.runLater(()->storypane.appendText(name + "\n"));
+              //Platform.runLater(()->storypane.appendText(desc + "\n"));
+              //Platform.runLater(()->storypane.appendText("Priority: " + pri + "\n_______________________________________\n"));
               S++;
           } else {
               try {

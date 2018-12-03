@@ -8,16 +8,17 @@ import java.net.InetAddress;
 import java.net.Socket;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane;
 
 public class BoardGateway implements board.BoardConstants {
 
     private PrintWriter outputToServer;
     private BufferedReader inputFromServer;
     private TextArea textArea;
-    private TextArea storypane;
+    private ScrollPane storypane;
 
     // Establish the connection to the server.
-    public BoardGateway(TextArea textArea, TextArea storypane) {
+    public BoardGateway(TextArea textArea, ScrollPane storypane) {
         this.textArea = textArea;
         this.storypane = storypane;
         try {
@@ -33,7 +34,7 @@ public class BoardGateway implements board.BoardConstants {
 
         } catch (IOException ex) {
             Platform.runLater(() -> textArea.appendText("Exception in gateway constructor: " + ex.toString() + "\n"));
-            Platform.runLater(() -> storypane.appendText("Exception in gateway constructor: " + ex.toString() + "\n"));
+            //Platform.runLater(() -> storypane.appendText("Exception in gateway constructor: " + ex.toString() + "\n"));
         }
     }
 
@@ -68,7 +69,7 @@ public class BoardGateway implements board.BoardConstants {
             count = Integer.parseInt(inputFromServer.readLine());
         } catch (IOException ex) {
             Platform.runLater(() -> textArea.appendText("Error in getCommentCount: " + ex.toString() + "\n"));
-            Platform.runLater(() -> storypane.appendText("Error in getCommentCount: " + ex.toString() + "\n"));
+            //Platform.runLater(() -> storypane.appendText("Error in getCommentCount: " + ex.toString() + "\n"));
         }
         return count;
     }
@@ -83,7 +84,7 @@ public class BoardGateway implements board.BoardConstants {
             count = Integer.parseInt(inputFromServer.readLine());
         } catch (IOException ex) {
             Platform.runLater(() -> textArea.appendText("Error in getStoryCount: " + ex.toString() + "\n"));
-            Platform.runLater(() -> storypane.appendText("Error in getStoryCount: " + ex.toString() + "\n"));
+            //Platform.runLater(() -> storypane.appendText("Error in getStoryCount: " + ex.toString() + "\n"));
         }
         return count;
     }
@@ -98,7 +99,7 @@ public class BoardGateway implements board.BoardConstants {
             comment = inputFromServer.readLine();
         } catch (IOException ex) {
             Platform.runLater(() -> textArea.appendText("Error in getComment: " + ex.toString() + "\n"));
-            Platform.runLater(() -> storypane.appendText("Error in getComment: " + ex.toString() + "\n"));
+            //Platform.runLater(() -> storypane.appendText("Error in getComment: " + ex.toString() + "\n"));
         }
         return comment;
     }
@@ -113,7 +114,7 @@ public class BoardGateway implements board.BoardConstants {
             comment = inputFromServer.readLine();
         } catch (IOException ex) {
             Platform.runLater(() -> textArea.appendText("Error in getStory: " + ex.toString() + "\n"));
-            Platform.runLater(() -> storypane.appendText("Error in getStory: " + ex.toString() + "\n"));
+            //Platform.runLater(() -> storypane.appendText("Error in getStory: " + ex.toString() + "\n"));
         }
         return comment;
     }
