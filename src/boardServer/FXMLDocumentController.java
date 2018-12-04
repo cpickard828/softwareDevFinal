@@ -28,7 +28,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private TextArea textArea;
-    
+
     private int clientNo = 0;
     private Transcript transcript;
 
@@ -115,7 +115,7 @@ class HandleAClient implements Runnable, board.BoardConstants {
               case SEND_STORY: {
                   String comment = inputFromClient.readLine();
                   int random = rand.nextInt(9999) + 1;
-                  transcript.addStory(Integer.toString(random + (numStories++ * 100000)) + '|' + comment);
+                  transcript.addStory(Integer.toString(random + (numStories++ * 10000)) + '|' + comment);
                   textArea.appendText("new story: " + comment + '\n');
                   break;
               }
