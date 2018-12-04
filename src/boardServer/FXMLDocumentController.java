@@ -109,6 +109,7 @@ class HandleAClient implements Runnable, board.BoardConstants {
 					int n = Integer.parseInt(inputFromClient.readLine());
 					outputToClient.println(transcript.getComment(n));
 					outputToClient.flush();
+					break;
 				}
 				case SEND_STORY: {
 					String comment = inputFromClient.readLine();
@@ -126,6 +127,7 @@ class HandleAClient implements Runnable, board.BoardConstants {
 					int n = Integer.parseInt(inputFromClient.readLine());
 					outputToClient.println(transcript.getStory(n));
 					outputToClient.flush();
+					break;
 				}
 				case DELETE: {
 					String comment = inputFromClient.readLine();
