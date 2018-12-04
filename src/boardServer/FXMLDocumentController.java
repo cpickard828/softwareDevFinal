@@ -129,6 +129,20 @@ class HandleAClient implements Runnable, board.BoardConstants {
                   outputToClient.println(transcript.getStory(n));
                   outputToClient.flush();
               }
+              case DELETE: {
+                  String comment = inputFromClient.readLine();
+                  if (transcript.deleteStory(Integer.parseInt(comment))) {
+                      textArea.appendText("Delete story: " + comment);
+                      outputToClient.println(comment);
+                      outputToClient.flush();
+                  }
+                  break;
+              }
+              case GET_DELETED: {
+                  outputToClient.println(transcript.getDeletedSize());
+                  outputToClient.flush();
+                  break;
+              }
           }
         }
       }

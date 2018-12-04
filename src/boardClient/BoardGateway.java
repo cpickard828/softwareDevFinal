@@ -95,6 +95,21 @@ public class BoardGateway implements board.BoardConstants {
         }
         return count;
     }
+    
+    // Ask the server to send us a count of how many comments are
+    // currently in the transcript.
+    public int getDeletedCount() {
+        outputToServer.println(GET_DELETED);
+        outputToServer.flush();
+        int count = 0;
+        try {
+            count = Integer.parseInt(inputFromServer.readLine());
+        } catch (IOException ex) {
+            Platform.runLater(() -> textArea.appendText("Error in getStoryCount: " + ex.toString() + "\n"));
+            //Platform.runLater(() -> storypane.appendText("Error in getStoryCount: " + ex.toString() + "\n"));
+        }
+        return count;
+    }
 
     // Fetch comment n of the transcript from the server.
     public String getComment(int n) {
@@ -125,4 +140,6 @@ public class BoardGateway implements board.BoardConstants {
         }
         return comment;
     }
+    
+    
 }

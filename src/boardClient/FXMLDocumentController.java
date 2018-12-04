@@ -89,6 +89,7 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
     private VBox storypane; // Where to display comments
     private int N; // How many comments we have read
     private int S; // How many stories we have read
+    private int D;
     private FXMLDocumentController fxdc;
 
     /** Construct a thread */
@@ -98,12 +99,21 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
       this.storypane = storypane;
       this.N = 0;
       this.S = 0;
+      this.D = 0;
       this.fxdc = fxdc;
     }
 
     /** Run a thread */
     public void run() {
       while(true) {
+          if(gateway.getDeletedCount() > D) {
+        	  // delete story
+        	  D++;
+          } else {
+              try {
+                  Thread.sleep(250);
+              } catch(InterruptedException ex) {}
+          }
           if(gateway.getStoryCount() > S) {
               String newComment = gateway.getStory(S);
               String[] data = newComment.split("\\|");
