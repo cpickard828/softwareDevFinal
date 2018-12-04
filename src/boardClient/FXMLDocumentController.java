@@ -60,10 +60,51 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+    private void moveNotStarted(ActionEvent event) {
+    	String id = storyID.getText();
+    	//String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText();
+
+        gateway.deleteID(id);
+    }
+
+    @FXML
+    private void moveProgress(ActionEvent event) {
+    	String id = storyID.getText();
+    	//String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText();
+
+        gateway.deleteID(id);
+    }
+
+    @FXML
+    private void moveFinished(ActionEvent event) {
+    	String id = storyID.getText();
+    	//String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText();
+
+        gateway.deleteID(id);
+    }
+
+    @FXML
+    private void modify(ActionEvent event) {
+    	String id = storyID.getText();
+    	//String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText();
+
+        gateway.deleteID(id);
+    }
+
+    @FXML
+    private void view(ActionEvent event) {
+    	String id = storyID.getText();
+    	//String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText();
+
+        gateway.deleteID(id);
+    }
+
+    @FXML
     private void sendComment(ActionEvent event) {
         String text = comment.getText();
         gateway.sendComment(text);
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
