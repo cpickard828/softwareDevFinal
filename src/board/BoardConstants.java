@@ -8,4 +8,5 @@ public interface BoardConstants {
     public static int SEND_STORY = 5;
     public static int GET_STORY_COUNT = 6;
     public static int GET_STORY = 7;
+    public static int DELETE = 8;
 }

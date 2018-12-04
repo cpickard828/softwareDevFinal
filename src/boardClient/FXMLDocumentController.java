@@ -38,18 +38,27 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField storypri;
     @FXML
+    private TextField storyID;
+    @FXML
     private VBox storypane;
 
     public List<String> storyTranscript = Collections.synchronizedList(new ArrayList<String>());
-    
-    
+
+
     @FXML
     private void sendStory(ActionEvent event) {
     	String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText();
 
         gateway.sendStory(text);
     }
-    
+    @FXML
+    private void delete(ActionEvent event) {
+    	String id = storyID.getText();
+    	//String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText();
+
+        gateway.deleteID(id);
+    }
+
     @FXML
     private void sendComment(ActionEvent event) {
         String text = comment.getText();

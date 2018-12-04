@@ -51,13 +51,20 @@ public class BoardGateway implements board.BoardConstants {
         outputToServer.println(comment);
         outputToServer.flush();
     }
-    
+
     // Send a new comment to the server.
     public void sendStory(String comment) {
         outputToServer.println(SEND_STORY);
         outputToServer.println(comment);
         outputToServer.flush();
     }
+
+    public void deleteID(String id) {
+        outputToServer.println(DELETE);
+        outputToServer.println(id);
+        outputToServer.flush();
+    }
+
 
     // Ask the server to send us a count of how many comments are
     // currently in the transcript.
@@ -73,7 +80,7 @@ public class BoardGateway implements board.BoardConstants {
         }
         return count;
     }
-    
+
     // Ask the server to send us a count of how many comments are
     // currently in the transcript.
     public int getStoryCount() {
@@ -103,7 +110,7 @@ public class BoardGateway implements board.BoardConstants {
         }
         return comment;
     }
-    
+
     // Fetch comment n of the transcript from the server.
     public String getStory(int n) {
         outputToServer.println(GET_STORY);
