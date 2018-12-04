@@ -15,23 +15,23 @@ import javafx.stage.Stage;
  */
 public class BoardClient extends Application {
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+	@Override
+	public void start(Stage stage) throws Exception {
+		Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 
-        Scene scene = new Scene(root);
-        final Canvas canvas = new Canvas(900, 1000);
-        stage.setScene(scene);
-        stage.setTitle("Board Client");
-        stage.setOnCloseRequest(event->System.exit(0));
-        stage.show();
-    }
+		Scene scene = new Scene(root);
+		final Canvas canvas = new Canvas(900, 1000);
+		stage.setScene(scene);
+		stage.setTitle("Board Client");
+		stage.setOnCloseRequest(event -> System.exit(0));
+		stage.show();
+	}
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 }

@@ -12,7 +12,8 @@ public class Transcript {
 	private List<String> transcript = Collections.synchronizedList(new ArrayList<String>());
 	private List<String> storyTranscript = Collections.synchronizedList(new ArrayList<String>());
 	private int deleted = 0;
-	
+	private int lastDeleted = 0;
+
 	public Transcript() {
 
 	}
@@ -44,11 +45,16 @@ public class Transcript {
 	public int getDeletedSize() {
 		return deleted;
 	}
-	
+
+	public int getDeleted() {
+		return lastDeleted;
+	}
+
 	public Boolean deleteStory(int n) {
 		for (int i = 0; i < storyTranscript.size(); i++) {
 			if (Integer.parseInt(storyTranscript.get(i).split("\\|")[0]) == n) {
 				storyTranscript.remove(i);
+				lastDeleted = n;
 				deleted++;
 				return true;
 			}
