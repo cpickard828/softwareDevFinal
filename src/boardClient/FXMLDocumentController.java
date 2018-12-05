@@ -92,7 +92,7 @@ public class FXMLDocumentController implements Initializable {
 			e.printStackTrace();
 		}
 		transferText = transferText.substring(0, transferText.length() - 1);
-		transferText = transferText.split("|", 2)[0] + "|" + transferText.split("|", 3)[2] + "2";
+		transferText = transferText.split("\\|", 2)[1] + transferText.split("\\|", 3)[2] + "2";
 		gateway.sendStory(transferText);
 	}
 
@@ -188,6 +188,7 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 			if (gateway.getStoryCount() > S) {
 				System.out.println("Insert story");
 				String newComment = gateway.getStory(S);
+				System.out.println(newComment);
 				String[] data = newComment.split("\\|");
 				String storyKey = data[0];
 				String name = data[1];
