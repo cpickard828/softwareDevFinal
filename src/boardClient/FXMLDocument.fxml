@@ -45,7 +45,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
              <ScrollPane hbarPolicy="NEVER" prefWidth="200.0" styleClass="centeredTextArea, paddingTop">
 		        <content>
-		        	<VBox fx:id="pane" prefWidth="200.0" BorderPane.alignment="CENTER">
+		        	<VBox fx:id="finishpane" prefWidth="200.0" BorderPane.alignment="CENTER">
          				<children>
 		                </children>
            			 </VBox>
@@ -133,7 +133,7 @@
                       <RowConstraints maxHeight="21.0" minHeight="4.0" prefHeight="13.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Story ID:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" text="Story ID:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>

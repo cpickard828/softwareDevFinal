@@ -55,14 +55,19 @@ public class FXMLDocumentController implements Initializable {
 
 	@FXML
 	private void sendStory(ActionEvent event) {
-		String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText() + "|1";
-
-		gateway.sendStory(text);
+		if(!storyname.getText().trim().equals("") && !storydesc.getText().trim().equals("") && !storypri.getText().trim().equals("")  && storypri.getText().matches("-?\\d+") && Integer.parseInt(storypri.getText()) >= 0 && Integer.parseInt(storypri.getText()) <= 10) {
+			String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText() + "|1";
+			storyname.clear();
+			storydesc.clear();
+			storypri.clear();
+			gateway.sendStory(text);
+		}
 	}
 
 	@FXML
 	private void delete(ActionEvent event) {
 		String id = storyID.getText();
+		storyID.clear();
 		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
 		// storypri.getText();
 		//System.out.println(id);
@@ -72,46 +77,82 @@ public class FXMLDocumentController implements Initializable {
 	@FXML
 	private void moveNotStarted(ActionEvent event) {
 		String id = storyID.getText();
-		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
-		// storypri.getText();
-
-		gateway.deleteID(id);
-	}
-
-	@FXML
-	private void moveProgress(ActionEvent event) {
-		String id = storyID.getText();
+		storyID.clear();
 		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
 		// storypri.getText();
 		String transferText;
 		transferText = gateway.deleteID(id);
 		try {
-			TimeUnit.SECONDS.sleep(3);
+			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		transferText = transferText.substring(0, transferText.length() - 1);
-		transferText = transferText.split("\\|", 2)[1] + transferText.split("\\|", 3)[2] + "2";
+		transferText = transferText.split("\\|", 2)[1] + "1";
+		gateway.sendStory(transferText);
+	}
+
+	@FXML
+	private void moveProgress(ActionEvent event) {
+		String id = storyID.getText();
+		storyID.clear();
+		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
+		// storypri.getText();
+		String transferText;
+		transferText = gateway.deleteID(id);
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		transferText = transferText.substring(0, transferText.length() - 1);
+		transferText = transferText.split("\\|", 2)[1] + "2";
 		gateway.sendStory(transferText);
 	}
 
 	@FXML
 	private void moveFinished(ActionEvent event) {
 		String id = storyID.getText();
+		storyID.clear();
 		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
 		// storypri.getText();
-
-		gateway.deleteID(id);
+		String transferText;
+		transferText = gateway.deleteID(id);
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		transferText = transferText.substring(0, transferText.length() - 1);
+		transferText = transferText.split("\\|", 2)[1] + "3";
+		gateway.sendStory(transferText);
 	}
 
 	@FXML
 	private void modify(ActionEvent event) {
-		String id = storyID.getText();
-		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
-		// storypri.getText();
-
-		gateway.deleteID(id);
+		if(!storyname.getText().trim().equals("") && !storydesc.getText().trim().equals("") && !storypri.getText().trim().equals("")  && storypri.getText().matches("-?\\d+") && Integer.parseInt(storypri.getText()) >= 0 && Integer.parseInt(storypri.getText()) <= 10) {
+			String id = storyID.getText();
+			storyID.clear();
+			// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
+			// storypri.getText();
+			String transferText;
+			transferText = gateway.deleteID(id);
+			try {
+				TimeUnit.SECONDS.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			char col = transferText.charAt(transferText.length() - 1);
+			String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText() + "|" + col;
+			storyname.clear();
+			storydesc.clear();
+			storypri.clear();
+			gateway.sendStory(text);
+		}
 	}
 
 	@FXML
@@ -186,7 +227,6 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 				}
 			}
 			if (gateway.getStoryCount() > S) {
-				System.out.println("Insert story");
 				String newComment = gateway.getStory(S);
 				System.out.println(newComment);
 				String[] data = newComment.split("\\|");
@@ -220,7 +260,6 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 				Platform.runLater(() -> newTextArea.appendText("Priority: " + pri + "\n"));
 				S++;
 			} else if (gateway.getStoryCount() < S) {
-				System.out.println("Delete story");
 				int lastDeleted = gateway.getLastDeleted();
 				if (lastDeleted > 0) {
 					S--;
@@ -231,7 +270,6 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 				}
 
 			} else {
-				System.out.println("Equal");
 				try {
 					Thread.sleep(250);
 				} catch (InterruptedException ex) {
