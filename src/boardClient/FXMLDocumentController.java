@@ -48,7 +48,7 @@ public class FXMLDocumentController implements Initializable {
 
 	@FXML
 	private void sendStory(ActionEvent event) {
-		String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText();
+		String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText() + "|1";
 
 		gateway.sendStory(text);
 	}
@@ -172,13 +172,26 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 				String name = data[1];
 				String desc = data[2];
 				String pri = data[3];
+				int col = Integer.parseInt(data[4]);
 
 				fxdc.storyTranscript.add(newComment);
 				TextArea newTextArea = new TextArea();
 				newTextArea.setEditable(false);
 				map.put(Integer.parseInt(storyKey), newTextArea);
 
-				Platform.runLater(() -> storypane.getChildren().add(newTextArea));
+				switch (col) {
+				case 1: {
+					Platform.runLater(() -> storypane.getChildren().add(newTextArea));
+					break;
+				}
+				case 2: {
+					Platform.runLater(() -> progresspane.getChildren().add(newTextArea));
+					break;
+				}
+				case 3: {
+					Platform.runLater(() -> finishpane.getChildren().add(newTextArea));
+					break;
+				}}
 				Platform.runLater(() -> newTextArea.appendText("Story " + storyKey + "\n"));
 				Platform.runLater(() -> newTextArea.appendText(name + "\n"));
 				Platform.runLater(() -> newTextArea.appendText(desc + "\n"));
