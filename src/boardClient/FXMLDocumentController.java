@@ -92,7 +92,7 @@ public class FXMLDocumentController implements Initializable {
 			e.printStackTrace();
 		}
 		transferText = transferText.substring(0, transferText.length() - 1);
-		transferText = id + "|" + transferText.split("|", 2)[1] + "2";
+		transferText = transferText.split("|", 2)[0] + "|" + transferText.split("|", 3)[2] + "2";
 		gateway.sendStory(transferText);
 	}
 
