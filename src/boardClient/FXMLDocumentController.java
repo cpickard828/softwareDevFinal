@@ -9,7 +9,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -56,7 +58,7 @@ public class FXMLDocumentController implements Initializable {
 		String id = storyID.getText();
 		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
 		// storypri.getText();
-
+		//System.out.println(id);
 		gateway.deleteID(id);
 	}
 
@@ -130,6 +132,8 @@ public class FXMLDocumentController implements Initializable {
 }
 
 class TranscriptCheck implements Runnable, board.BoardConstants {
+	Map<Integer, TextArea> map = new HashMap<Integer, TextArea>();
+
 	private BoardGateway gateway; // Gateway to the server
 	private TextArea textArea; // Where to display comments
 	private VBox storypane; // Where to display comments
@@ -168,8 +172,12 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 				String name = data[1];
 				String desc = data[2];
 				String pri = data[3];
+
 				fxdc.storyTranscript.add(newComment);
 				TextArea newTextArea = new TextArea();
+				newTextArea.setEditable(false);
+				map.put(Integer.parseInt(storyKey), newTextArea);
+
 				Platform.runLater(() -> storypane.getChildren().add(newTextArea));
 				Platform.runLater(() -> newTextArea.appendText("Story " + storyKey + "\n"));
 				Platform.runLater(() -> newTextArea.appendText(name + "\n"));
@@ -181,7 +189,9 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 				if (lastDeleted > 0) {
 					S--;
 					// delete story for real this time
-
+					TextArea deleteStory = map.get(lastDeleted);
+					Platform.runLater(() -> ((VBox) deleteStory.getParent()).getChildren().remove(deleteStory));
+					map.remove(lastDeleted);
 				}
 
 			} else {

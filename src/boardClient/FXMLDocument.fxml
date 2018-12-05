@@ -28,6 +28,14 @@
       <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        	 <ScrollPane hbarPolicy="NEVER" prefWidth="200.0" styleClass="centeredTextArea, paddingTop">
+		        <content>
+		        	<VBox fx:id="progresspane" prefWidth="200.0" BorderPane.alignment="CENTER">
+         				<children>
+		                </children>
+           			 </VBox>
+		        </content>
+	          </ScrollPane>
         </content>
       </ScrollPane>
    </center>
@@ -35,6 +43,14 @@
       <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+             <ScrollPane hbarPolicy="NEVER" prefWidth="200.0" styleClass="centeredTextArea, paddingTop">
+		        <content>
+		        	<VBox fx:id="finishpane" prefWidth="200.0" BorderPane.alignment="CENTER">
+         				<children>
+		                </children>
+           			 </VBox>
+		        </content>
+	          </ScrollPane>
         </content>
       </ScrollPane>
    </right>
@@ -100,13 +116,26 @@
         <items>
             <GridPane prefHeight="109.0" prefWidth="598.0">
                <children>
-                  <Button alignment="CENTER" onAction="#moveNotStarted" mnemonicParsing="false" text="Move to Not Started" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" onAction="#view" text="View" GridPane.rowIndex="2" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#moveNotStarted" text="Move to Not Started" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" onAction="#moveProgress" text="Move to In Progress" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" onAction="#modify" text="Modify" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Button mnemonicParsing="false" onAction="#moveFinished" text="Move to Finished" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" onAction="#delete" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <TextField fx:id="storyID" promptText="Enter Story ID here..." GridPane.columnIndex="1" />
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="138.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="62.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="19.0" minHeight="9.0" prefHeight="14.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="21.0" minHeight="4.0" prefHeight="13.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Story ID:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
                </children>
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
