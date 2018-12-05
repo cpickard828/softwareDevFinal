@@ -45,7 +45,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
              <ScrollPane hbarPolicy="NEVER" prefWidth="200.0" styleClass="centeredTextArea, paddingTop">
 		        <content>
-		        	<VBox fx:id="finishpane" prefWidth="200.0" BorderPane.alignment="CENTER">
+		        	<VBox fx:id="pane" prefWidth="200.0" BorderPane.alignment="CENTER">
          				<children>
 		                </children>
            			 </VBox>

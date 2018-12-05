@@ -86,13 +86,13 @@ public class FXMLDocumentController implements Initializable {
 		String transferText;
 		transferText = gateway.deleteID(id);
 		try {
-			TimeUnit.SECONDS.sleep(5);
+			TimeUnit.SECONDS.sleep(3);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		transferText = transferText.substring(0, transferText.length() - 1);
-		transferText = transferText + "2";
+		transferText = id + "|" + transferText.split("|", 2)[1] + "2";
 		gateway.sendStory(transferText);
 	}
 
