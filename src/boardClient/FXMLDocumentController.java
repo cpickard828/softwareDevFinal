@@ -179,6 +179,7 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 			} else if (gateway.getStoryCount() < S) {
 				int lastDeleted = gateway.getLastDeleted();
 				if (lastDeleted > 0) {
+					S--;
 					// delete story for real this time
 
 				}
