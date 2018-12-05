@@ -60,10 +60,20 @@ public class BoardGateway implements board.BoardConstants {
 		outputToServer.flush();
 	}
 
-	public void deleteID(String id) {
+	public String deleteID(String id) {
 		outputToServer.println(DELETE);
 		outputToServer.println(id);
 		outputToServer.flush();
+
+		String comment = "";
+		try {
+			comment = inputFromServer.readLine();
+		} catch (IOException ex) {
+			Platform.runLater(() -> textArea.appendText("Error in getStory: " + ex.toString() + "\n"));
+			// Platform.runLater(() -> storypane.appendText("Error in getStory: " +
+			// ex.toString() + "\n"));
+		}
+		return comment;
 	}
 
 	// Ask the server to send us a count of how many comments are

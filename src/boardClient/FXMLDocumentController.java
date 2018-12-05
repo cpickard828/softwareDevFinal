@@ -5,6 +5,7 @@
  */
 package boardClient;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,6 +46,10 @@ public class FXMLDocumentController implements Initializable {
 	private TextField storyID;
 	@FXML
 	private VBox storypane;
+	@FXML
+	private VBox progresspane;
+	@FXML
+	private VBox finishpane;
 
 	public List<String> storyTranscript = Collections.synchronizedList(new ArrayList<String>());
 
@@ -76,8 +83,17 @@ public class FXMLDocumentController implements Initializable {
 		String id = storyID.getText();
 		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
 		// storypri.getText();
-
-		gateway.deleteID(id);
+		String transferText;
+		transferText = gateway.deleteID(id);
+		try {
+			TimeUnit.SECONDS.sleep(5);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		transferText = transferText.substring(0, transferText.length() - 1);
+		transferText = transferText + "2";
+		gateway.sendStory(transferText);
 	}
 
 	@FXML
@@ -127,7 +143,7 @@ public class FXMLDocumentController implements Initializable {
 		result.ifPresent(name -> gateway.sendHandle(name));
 
 		// Start the transcript check thread
-		new Thread(new TranscriptCheck(gateway, textArea, storypane, this)).start();
+		new Thread(new TranscriptCheck(gateway, textArea, storypane, progresspane, finishpane, this)).start();
 	}
 }
 
@@ -137,16 +153,20 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 	private BoardGateway gateway; // Gateway to the server
 	private TextArea textArea; // Where to display comments
 	private VBox storypane; // Where to display comments
+	private VBox progresspane; // Where to display comments
+	private VBox finishpane; // Where to display comments
 	private int N; // How many comments we have read
 	private int S; // How many stories we have read
 	private int D;
 	private FXMLDocumentController fxdc;
 
 	/** Construct a thread */
-	public TranscriptCheck(BoardGateway gateway, TextArea textArea, VBox storypane, FXMLDocumentController fxdc) {
+	public TranscriptCheck(BoardGateway gateway, TextArea textArea, VBox storypane, VBox progresspane, VBox finishpane, FXMLDocumentController fxdc) {
 		this.gateway = gateway;
 		this.textArea = textArea;
 		this.storypane = storypane;
+		this.progresspane = progresspane;
+		this.finishpane = finishpane;
 		this.N = 0;
 		this.S = 0;
 		this.D = 0;
@@ -166,6 +186,7 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 				}
 			}
 			if (gateway.getStoryCount() > S) {
+				System.out.println("Insert story");
 				String newComment = gateway.getStory(S);
 				String[] data = newComment.split("\\|");
 				String storyKey = data[0];
@@ -198,6 +219,7 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 				Platform.runLater(() -> newTextArea.appendText("Priority: " + pri + "\n"));
 				S++;
 			} else if (gateway.getStoryCount() < S) {
+				System.out.println("Delete story");
 				int lastDeleted = gateway.getLastDeleted();
 				if (lastDeleted > 0) {
 					S--;
@@ -208,6 +230,7 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 				}
 
 			} else {
+				System.out.println("Equal");
 				try {
 					Thread.sleep(250);
 				} catch (InterruptedException ex) {
