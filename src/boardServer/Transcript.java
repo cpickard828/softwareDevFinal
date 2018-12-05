@@ -50,15 +50,16 @@ public class Transcript {
 		return lastDeleted;
 	}
 
-	public Boolean deleteStory(int n) {
+	public String deleteStory(int n) {
 		for (int i = 0; i < storyTranscript.size(); i++) {
 			if (Integer.parseInt(storyTranscript.get(i).split("\\|")[0]) == n) {
+				String story = storyTranscript.get(i);
 				storyTranscript.remove(i);
 				lastDeleted = n;
 				deleted++;
-				return true;
+				return story;
 			}
 		}
-		return false;
+		return null;
 	}
 }
