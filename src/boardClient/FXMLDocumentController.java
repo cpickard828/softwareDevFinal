@@ -177,7 +177,7 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 				Platform.runLater(() -> newTextArea.appendText("Priority: " + pri + "\n"));
 				S++;
 			} else if (gateway.getStoryCount() < S) {
-				int lastDeleted = gateway.getLastDeleted(S);
+				int lastDeleted = gateway.getLastDeleted();
 				if (lastDeleted > 0) {
 					// delete story for real this time
 
