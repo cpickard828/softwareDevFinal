@@ -31,30 +31,30 @@ import javafx.scene.control.TextInputDialog;
  * @author Joe Gregg
  */
 public class FXMLDocumentController implements Initializable {
-	private BoardGateway gateway;
+	public BoardGateway gateway;
 	@FXML
-	private TextArea textArea;
+	public TextArea textArea;
 	@FXML
-	private TextField comment;
+	public TextField comment;
 	@FXML
-	private TextField storyname;
+	public TextField storyname;
 	@FXML
-	private TextField storydesc;
+	public TextField storydesc;
 	@FXML
-	private TextField storypri;
+	public TextField storypri;
 	@FXML
-	private TextField storyID;
+	public TextField storyID;
 	@FXML
-	private VBox storypane;
+	public VBox storypane;
 	@FXML
-	private VBox progresspane;
+	public VBox progresspane;
 	@FXML
-	private VBox finishpane;
+	public VBox finishpane;
 
 	public List<String> storyTranscript = Collections.synchronizedList(new ArrayList<String>());
 
 	@FXML
-	private void sendStory(ActionEvent event) {
+	public void sendStory(ActionEvent event) {
 		if(!storyname.getText().trim().equals("") && !storydesc.getText().trim().equals("") && !storypri.getText().trim().equals("")  && storypri.getText().matches("-?\\d+") && Integer.parseInt(storypri.getText()) >= 0 && Integer.parseInt(storypri.getText()) <= 10) {
 			String text = storyname.getText() + "|" + storydesc.getText() + "|" + storypri.getText() + "|1";
 			storyname.clear();
@@ -65,7 +65,7 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 	@FXML
-	private void delete(ActionEvent event) {
+	public void delete(ActionEvent event) {
 		String id = storyID.getText();
 		storyID.clear();
 		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
@@ -75,7 +75,7 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 	@FXML
-	private void moveNotStarted(ActionEvent event) {
+	public void moveNotStarted(ActionEvent event) {
 		String id = storyID.getText();
 		storyID.clear();
 		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
@@ -94,7 +94,7 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 	@FXML
-	private void moveProgress(ActionEvent event) {
+	public void moveProgress(ActionEvent event) {
 		String id = storyID.getText();
 		storyID.clear();
 		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
@@ -113,7 +113,7 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 	@FXML
-	private void moveFinished(ActionEvent event) {
+	public void moveFinished(ActionEvent event) {
 		String id = storyID.getText();
 		storyID.clear();
 		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
@@ -132,7 +132,7 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 	@FXML
-	private void modify(ActionEvent event) {
+	public void modify(ActionEvent event) {
 		if(!storyname.getText().trim().equals("") && !storydesc.getText().trim().equals("") && !storypri.getText().trim().equals("")  && storypri.getText().matches("-?\\d+") && Integer.parseInt(storypri.getText()) >= 0 && Integer.parseInt(storypri.getText()) <= 10) {
 			String id = storyID.getText();
 			storyID.clear();
@@ -156,7 +156,7 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 	@FXML
-	private void view(ActionEvent event) {
+	public void view(ActionEvent event) {
 		String id = storyID.getText();
 		// String text = storyname.getText() + "|" + storydesc.getText() + "|" +
 		// storypri.getText();
@@ -165,7 +165,7 @@ public class FXMLDocumentController implements Initializable {
 	}
 
 	@FXML
-	private void sendComment(ActionEvent event) {
+	public void sendComment(ActionEvent event) {
 		String text = comment.getText();
 		gateway.sendComment(text);
 	}
