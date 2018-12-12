@@ -270,7 +270,6 @@ class TranscriptCheck implements Runnable, board.BoardConstants {
 			}
 			if (gateway.getStoryCount() > S) {
 				String newComment = gateway.getStory(S);
-				System.out.println(newComment);
 				String[] data = newComment.split("\\|");
 				String storyKey = data[0];
 				String name = data[1];
