@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
@@ -8,9 +9,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" stylesheets="@./style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardClient.FXMLDocumentController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="792.0" stylesheets="@./style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardClient.FXMLDocumentController">
    <left>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane hbarPolicy="NEVER" prefHeight="249.0" prefWidth="186.0" BorderPane.alignment="CENTER">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
 	          <ScrollPane hbarPolicy="NEVER" prefWidth="200.0" styleClass="centeredTextArea, paddingTop">
@@ -25,7 +26,7 @@
       </ScrollPane>
    </left>
    <center>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane hbarPolicy="NEVER" prefHeight="249.0" prefWidth="160.0" BorderPane.alignment="CENTER">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
         	 <ScrollPane hbarPolicy="NEVER" prefWidth="200.0" styleClass="centeredTextArea, paddingTop">
@@ -40,18 +41,59 @@
       </ScrollPane>
    </center>
    <right>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-             <ScrollPane hbarPolicy="NEVER" prefWidth="200.0" styleClass="centeredTextArea, paddingTop">
-		        <content>
-		        	<VBox fx:id="finishpane" prefWidth="200.0" BorderPane.alignment="CENTER">
-         				<children>
-		                </children>
-           			 </VBox>
-		        </content>
-	          </ScrollPane>
-        </content>
+      <ScrollPane hbarPolicy="NEVER" prefHeight="249.0" prefWidth="423.0" BorderPane.alignment="CENTER">
+         <content>
+            <GridPane prefHeight="257.0" prefWidth="434.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="184.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="252.0" minWidth="10.0" prefWidth="250.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <AnchorPane prefHeight="257.0" prefWidth="179.0" />
+                   <ScrollPane hbarPolicy="NEVER" prefHeight="257.0" prefWidth="204.0" styleClass="centeredTextArea, paddingTop">
+		        		<content>
+		        			<VBox fx:id="finishpane" prefWidth="200.0" BorderPane.alignment="CENTER">
+         						<children>
+		                		</children>
+           			 		</VBox>
+		        		</content>
+	          		</ScrollPane>
+                  <GridPane prefHeight="257.0" prefWidth="224.0" GridPane.columnIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="211.0" minHeight="10.0" prefHeight="211.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <GridPane prefHeight="146.0" prefWidth="252.0" GridPane.rowIndex="1">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="115.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                              <TextArea editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="159.0" text="Sprint Backlog " GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextArea>
+                           </children>
+                        </GridPane>
+                        <ImageView fx:id="burndown" fitHeight="109.0" fitWidth="225.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button mnemonicParsing="false" text="View" onAction="#graph" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+         </content>
       </ScrollPane>
    </right>
    <top>
@@ -64,46 +106,47 @@
                         <Font size="32.0" />
                      </font>
                   </TextArea>
-                  <GridPane prefHeight="56.0" prefWidth="314.0">
+               </children>
+            </HBox>
+            <GridPane prefHeight="88.0" prefWidth="792.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="640.0" minWidth="10.0" prefWidth="553.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="239.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <GridPane prefHeight="77.0" prefWidth="600.0">
                     <columnConstraints>
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="107.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="103.0" minWidth="10.0" prefWidth="98.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="107.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" text="Product Backlog" />
-                        <Button mnemonicParsing="false" text="Sprint Backlog" GridPane.columnIndex="1" />
-                        <Button mnemonicParsing="false" text="Burndown Chart" GridPane.columnIndex="2" />
+                        <TextArea editable="false" prefHeight="49.0" prefWidth="200.0" styleClass="centeredTextArea" text="Not Started">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextArea>
+                        <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="centeredTextArea" text="In Progress" GridPane.columnIndex="1">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextArea>
+                        <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="centeredTextArea" text="Finished" GridPane.columnIndex="2">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextArea>
                      </children>
                   </GridPane>
-               </children>
-            </HBox>
-            <GridPane prefHeight="40.0" prefWidth="600.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="centeredTextArea" text="Not Started">
+                  <TextArea prefHeight="200.0" prefWidth="200.0" text="Burndown Chart" GridPane.columnIndex="1">
                      <font>
-                        <Font size="16.0" />
-                     </font>
-                  </TextArea>
-                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="centeredTextArea" text="In Progress" GridPane.columnIndex="1">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </TextArea>
-                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="centeredTextArea" text="Finished" GridPane.columnIndex="2">
-                     <font>
-                        <Font size="16.0" />
+                        <Font size="17.0" />
                      </font>
                   </TextArea>
                </children>
@@ -114,7 +157,7 @@
    <bottom>
       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
         <items>
-            <GridPane prefHeight="109.0" prefWidth="598.0">
+            <GridPane prefHeight="110.0" prefWidth="790.0">
                <children>
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#moveNotStarted" text="Move to Not Started" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" onAction="#moveProgress" text="Move to In Progress" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -124,16 +167,16 @@
                   <TextField fx:id="storyID" promptText="Enter Story ID here..." GridPane.columnIndex="1" />
                   <GridPane>
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="138.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="62.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="126.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="107.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="19.0" minHeight="9.0" prefHeight="14.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="21.0" minHeight="4.0" prefHeight="13.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="19.0" minHeight="8.0" prefHeight="8.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="21.0" minHeight="4.0" prefHeight="8.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" text="Story ID:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextArea editable="false" prefHeight="27.0" prefWidth="120.0" text="Story ID:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>

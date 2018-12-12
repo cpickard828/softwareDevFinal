@@ -11,4 +11,6 @@ public interface BoardConstants {
 	public static int DELETE = 8;
 	public static int GET_DELETED = 9;
 	public static int GET_DELETED_COUNT = 10;
+	public static int GET_ALL_POINTS = 11;
+	public static int GET_FIN_POINTS = 12;
 }

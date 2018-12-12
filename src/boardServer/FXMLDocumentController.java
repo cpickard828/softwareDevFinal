@@ -149,6 +149,16 @@ class HandleAClient implements Runnable, board.BoardConstants {
 					outputToClient.flush();
 					break;
 				}
+				case GET_ALL_POINTS: {
+					outputToClient.println(transcript.getAllPoints());
+					outputToClient.flush();
+					break;
+				}
+				case GET_FIN_POINTS: {
+					outputToClient.println(transcript.getFinishedPoints());
+					outputToClient.flush();
+					break;
+				}
 				}
 			}
 		} catch (IOException ex) {

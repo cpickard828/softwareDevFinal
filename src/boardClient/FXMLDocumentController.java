@@ -6,6 +6,7 @@
 package boardClient;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,8 +22,13 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 
@@ -53,6 +59,43 @@ public class FXMLDocumentController implements Initializable {
 
 	public List<String> storyTranscript = Collections.synchronizedList(new ArrayList<String>());
 
+	public void graph(ActionEvent event) {
+	     int total = gateway.getStoryPoints();
+	     System.out.println(total);
+		Stage stage = new Stage();
+		stage.setTitle("Burndown Chart");
+        //defining the axes
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("# of items Finished");
+        yAxis.setLabel("Story Points");
+        //creating the chart
+        final LineChart<Number,Number> lineChart =
+                new LineChart<Number,Number>(xAxis,yAxis);
+
+        lineChart.setTitle("Burndown");
+        //defining a series
+        XYChart.Series series = new XYChart.Series();
+        //series.setName("My portfolio");
+        //populating the series with data
+        series.getData().add(new XYChart.Data(0, total));
+
+
+        int x = 1;
+        String vec = gateway.getFinishedPoints();
+        String[] vecArray = vec.split(",");
+        for(int i = 0; i < Array.getLength(vecArray); i++ ) {
+        	total -= Integer.parseInt(vecArray[0]);
+        	series.getData().add(new XYChart.Data(x, total));
+        	x++;
+        }
+
+        Scene scene  = new Scene(lineChart,800,600);
+        lineChart.getData().add(series);
+
+        stage.setScene(scene);
+        stage.show();
+	}
 	@FXML
 	public void sendStory(ActionEvent event) {
 		if(!storyname.getText().trim().equals("") && !storydesc.getText().trim().equals("") && !storypri.getText().trim().equals("")  && storypri.getText().matches("-?\\d+") && Integer.parseInt(storypri.getText()) >= 0 && Integer.parseInt(storypri.getText()) <= 10) {

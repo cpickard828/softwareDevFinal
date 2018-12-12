@@ -60,6 +60,39 @@ public class BoardGateway implements board.BoardConstants {
 		outputToServer.flush();
 	}
 
+	public Integer getStoryPoints() {
+		outputToServer.println(GET_ALL_POINTS);
+		outputToServer.flush();
+
+		Integer total = 0;
+		try {
+			total = Integer.parseInt(inputFromServer.readLine());
+			System.out.println(total);
+			System.out.println("Something");
+		} catch (IOException ex) {
+			Platform.runLater(() -> textArea.appendText("Error in getStory: " + ex.toString() + "\n"));
+			// Platform.runLater(() -> storypane.appendText("Error in getStory: " +
+			// ex.toString() + "\n"));
+		}
+		return total;
+	}
+
+	public String getFinishedPoints() {
+		outputToServer.println(GET_FIN_POINTS);
+		outputToServer.flush();
+
+		String vec = new String();
+		try {
+			vec = inputFromServer.readLine();
+			System.out.println(vec);
+		} catch (IOException ex) {
+			Platform.runLater(() -> textArea.appendText("Error in getStory: " + ex.toString() + "\n"));
+			// Platform.runLater(() -> storypane.appendText("Error in getStory: " +
+			// ex.toString() + "\n"));
+		}
+		return vec;
+	}
+
 	public String deleteID(String id) {
 		outputToServer.println(DELETE);
 		outputToServer.println(id);
