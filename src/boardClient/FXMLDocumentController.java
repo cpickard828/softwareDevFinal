@@ -61,7 +61,6 @@ public class FXMLDocumentController implements Initializable {
 
 	public void graph(ActionEvent event) {
 	     int total = gateway.getStoryPoints();
-	     System.out.println(total);
 		Stage stage = new Stage();
 		stage.setTitle("Burndown Chart");
         //defining the axes
@@ -83,13 +82,13 @@ public class FXMLDocumentController implements Initializable {
 
         int x = 1;
         String vec = gateway.getFinishedPoints();
-        String[] vecArray = vec.split(",");
-        for(int i = 0; i < Array.getLength(vecArray); i++ ) {
-        	total -= Integer.parseInt(vecArray[0]);
-        	series.getData().add(new XYChart.Data(x, total));
-        	x++;
-        }
 
+        	String[] vecArray = vec.split(",");
+
+	        for(int i = 1; i < Array.getLength(vecArray); i++ ) {
+	        	total -= Integer.parseInt(vecArray[i]);
+	        	series.getData().add(new XYChart.Data(i, total));
+	        }
         Scene scene  = new Scene(lineChart,800,600);
         lineChart.getData().add(series);
 

@@ -29,7 +29,8 @@ public class FXMLDocumentController implements Initializable {
 	@FXML
 	private TextArea textArea;
 
-	private int clientNo = 0;
+	public int clientNo = 0;
+	public int test = 0;
 	private Transcript transcript;
 
 	private ServerSocket serverSocket;
@@ -47,12 +48,12 @@ public class FXMLDocumentController implements Initializable {
 					Socket socket = serverSocket.accept();
 					// Increment clientNo
 					clientNo++;
-
-					Platform.runLater(() -> {
-						// Display the client number
-						textArea.appendText("Starting thread for client " + clientNo + " at " + new Date() + '\n');
-					});
-
+					if(test==0) {
+						Platform.runLater(() -> {
+							// Display the client number
+							textArea.appendText("Starting thread for client " + clientNo + " at " + new Date() + '\n');
+						});
+					}
 					// Create and start a new thread for the connection
 					new Thread(new HandleAClient(socket, transcript, textArea)).start();
 				}

@@ -67,8 +67,6 @@ public class BoardGateway implements board.BoardConstants {
 		Integer total = 0;
 		try {
 			total = Integer.parseInt(inputFromServer.readLine());
-			System.out.println(total);
-			System.out.println("Something");
 		} catch (IOException ex) {
 			Platform.runLater(() -> textArea.appendText("Error in getStory: " + ex.toString() + "\n"));
 			// Platform.runLater(() -> storypane.appendText("Error in getStory: " +
@@ -84,7 +82,6 @@ public class BoardGateway implements board.BoardConstants {
 		String vec = new String();
 		try {
 			vec = inputFromServer.readLine();
-			System.out.println(vec);
 		} catch (IOException ex) {
 			Platform.runLater(() -> textArea.appendText("Error in getStory: " + ex.toString() + "\n"));
 			// Platform.runLater(() -> storypane.appendText("Error in getStory: " +

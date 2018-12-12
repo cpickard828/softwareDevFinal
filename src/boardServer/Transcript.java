@@ -67,14 +67,13 @@ public class Transcript {
 	public int getAllPoints() {
 		int sum = 0;
 		for (int i = 0; i < storyTranscript.size(); i++) {
-			System.out.println(Integer.parseInt(storyTranscript.get(i).split("\\|")[3]));
 			sum += Integer.parseInt(storyTranscript.get(i).split("\\|")[3]);
 		}
 		return sum;
 	}
 
 	public String getFinishedPoints() {
-		String vec = "";
+		String vec = ",";
 		for (int i = 0; i < storyTranscript.size(); i++) {
 			if(Integer.parseInt(storyTranscript.get(i).split("\\|")[4]) == 3) {
 				vec += (storyTranscript.get(i).split("\\|")[3]) + ",";
