@@ -1,8 +1,13 @@
 package boardServer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Vector;
 
 /**
@@ -16,11 +21,44 @@ public class Transcript {
 	private int lastDeleted = 0;
 
 	public Transcript() {
-
+		Scanner s;
+		try {
+			s = new Scanner(new File(System.getProperty("user.dir") + "\\stories.dat"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return;
+		}
+		while (s.hasNext()) {
+			addStory(s.next());
+		}
+		s.close();
 	}
 
+	public void save() {
+		FileWriter writer;
+		try {
+			writer = new FileWriter(System.getProperty("user.dir") + "\\stories.dat");
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+		for (String str : storyTranscript) {
+			try {
+				writer.write(str + "\n");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		try {
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void addStory(String comment) {
 		storyTranscript.add(comment);
+		save();
 	}
 
 	public void addComment(String comment) {
@@ -58,6 +96,7 @@ public class Transcript {
 				storyTranscript.remove(i);
 				lastDeleted = n;
 				deleted++;
+				save();
 				return story;
 			}
 		}
